@@ -1,7 +1,7 @@
 import "./App.css";
 import sunIcon from "../assets/desktop/icon-sun.svg";
 import arrowUp from "../assets/desktop/icon-arrow-up.svg";
-import arrowDown from "../assets/desktop/icon-arrow-down.svg";
+import iconRefresh from "../assets/desktop/icon-refresh.svg";
 
 function App() {
   return (
@@ -9,12 +9,15 @@ function App() {
       <div className="backgroundImage"></div>
       <section className="main_section">
         <div className="quote">
-          <p>
-            “The science of operations, as derived from mathematics more
-            especially, is a science of itself, and has its own abstract truth
-            and value.”
-          </p>
-          <p id="quote_author">Ada Lovelace</p>
+          <div>
+            <p>
+              “The science of operations, as derived from mathematics more
+              especially, is a science of itself, and has its own abstract truth
+              and value.”
+            </p>
+            <p id="quote_author">Ada Lovelace</p>
+          </div>
+          <img id="refresh" src={iconRefresh} alt="" />
         </div>
         <div className="time">
           <div id="greetings">
