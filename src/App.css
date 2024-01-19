@@ -1,0 +1,132 @@
+.App{
+    
+}
+
+.backgroundImage{
+    background-image: url(../assets/mobile/bg-image-daytime.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    filter: brightness(0.7);
+    position: relative;
+    z-index: -1;
+}
+
+.main_section{
+    position: fixed;
+    z-index: 1;
+    top: 3.2rem;
+    left: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90vh;
+}
+
+.quote{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.quote p{
+    color: #FFF;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 2.2rem;
+}
+
+#quote_author{
+    color: #FFF;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 2.2rem;
+}
+
+.time{
+
+}
+
+.time p{
+    color: #FFF;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+#greetings{
+    display: flex;
+    gap: 1.6rem;
+    margin-bottom: 1.6rem;
+}
+
+#local_time{
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1.6rem;
+}
+
+.time h1{
+    color: #FFF;
+    font-size: 10rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 10rem; 
+    letter-spacing: -2.5px;
+}
+
+.time span{
+    color: #FFF;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 2.8rem;
+    text-transform: uppercase;
+}
+
+.time #location{
+    color: #FFF;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4.8rem;
+}
+
+button{
+    width: 11.5rem;
+    height: 4rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4rem;
+    letter-spacing: 3.75px;
+    text-transform: uppercase;
+    border-radius: 2.8rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+button > img {
+    width: 3.2rem;
+    height: 3.2rem;
+}
+
+
+
+
+
+
+.details{
+    display: none;
+}
