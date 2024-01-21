@@ -4,21 +4,17 @@ import arrowUp from "../assets/desktop/icon-arrow-up.svg";
 import iconRefresh from "../assets/desktop/icon-refresh.svg";
 import { useState } from "react";
 
-const body = document.querySelector("body");
-
 function App() {
   const [showMore, setShowMore] = useState(false);
 
   const handleClick = () => {
-    // const mainSection = body?.querySelector(".main_section");
-    // mainSection?.classList.add("show_more");
-    setShowMore(true);
+    setShowMore(!showMore);
     console.log(showMore);
+    console.log("i am clicked");
   };
 
   return (
     <div className="App">
-      <div className="backgroundImage"></div>
       <section className="main_section">
         <div className="quote">
           <div>
@@ -43,10 +39,11 @@ function App() {
 
           <p id="location">IN LONDON, UK</p>
           <button onClick={handleClick}>
-            more
+            {showMore ? "less" : "more"}
             <img src={arrowUp} alt="" />
           </button>
         </div>
+        {/* <div className="darken"></div> */}
       </section>
 
       {showMore ? (
