@@ -13,6 +13,7 @@
     background-position: center;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 
@@ -33,11 +34,12 @@
     gap: 1.6rem;
     padding: 3.2rem 2.6rem;
     transform: translateY(0);
+    transition: transform 1s ease-in;
 }
 
 .hide{
     transform: translateY(-152px);
-    transition: transform 1s ease-in;
+    
 }
 
 #refresh{
@@ -63,11 +65,13 @@
     position: relative;
     z-index: 1;
     padding: 3.2rem 2.6rem;
+    transform: translateY(0);
+    transition: transform 0.8s ease-in;
 
 }
 
 .upwards{
-
+    transform: translateY(-76%);
 }
 
 .time p{
@@ -149,18 +153,20 @@ button{
 
 
 .details{
+    position: absolute;
+    width: 100%;
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(20px);
     padding: 4.8rem 2.6rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transform: translateY(100%);
     transition: transform 1s ease-in-out;
+    transform: translateY(250%);
 } 
   
 .show-up {
-    transform: translateY(0);
+    transform: translateY(150%);    
 }
 
 .column{
