@@ -7,7 +7,7 @@
     position: relative;
     overflow: hidden;
     z-index: -1;
-    /* background-image: url(../assets/mobile/bg-image-daytime.jpg); */
+    background-image: url(../assets/mobile/bg-image-daytime.jpg);
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -157,14 +157,37 @@ button{
     gap: 1.5rem;
 }
 
+button:active{
+    transform: scale(0.98);
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.circle{
+    height: 4rem;
+    width: 4rem;
+    background-color: #303030;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle:hover{
+    background-color: #999999;
+}
+
  button > img {
     width: 3.2rem;
     height: 3.2rem;
     transform: rotate(180deg);
 }
 
-
-
+button>img:hover{
+    border-color: #999999;
+}
 
 .details{
     position: absolute;
@@ -172,15 +195,22 @@ button{
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(20px);
     padding: 4.8rem 2.6rem;
+    transition: transform .5s ease-in;
+    bottom: -26rem;
+} 
+
+.column div{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: transform .5s ease-in;
-    transform: translateY(250%);
-} 
+}
+
+.grid{
+    grid-template-rows: repeat(1fr, 4);
+}
   
 .show-up {
-    transform: translateY(150%);    
+    transform: translateY(-26rem);    
 }
 
 .night{
@@ -218,4 +248,84 @@ button{
 .night .values,
 .night .keys {
     color: #ffffff;
+}
+
+
+@media screen and (min-width: 768px) {
+    .main_section{
+        background-image: url("../assets/tablet/bg-image-daytime.jpg");
+    }
+    .quote{
+        padding: 8rem 6.4rem;
+        justify-content: flex-start;
+        align-items: baseline;
+    }
+    .quote p{
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+    }
+    .time{
+        padding: 0 6.4rem 6.4rem
+    }
+    .time p{
+        font-size: 1.8rem;
+        line-height: 28px;
+        letter-spacing: 3.6px;
+    }
+    .time h1{
+        color: #FFF;
+        font-size: 17.5rem;
+        font-weight: 700;
+        line-height: 17.5rem;
+        letter-spacing: -4.375px;
+    }
+    #quote_author{
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+    }
+    #timezone{
+        padding-top: 10rem;
+    }
+    #location{
+        font-size: 1.8rem;
+        letter-spacing: 3.6px;
+    }
+    .details{
+        bottom: -45rem;
+        padding: 12rem 6.4rem;
+    }
+    .column{
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 8rem;
+        row-gap: 5rem;
+    }
+    .column div{
+        flex-direction: column;
+        align-items: self-start;
+    }
+    .column p{
+        font-size: 13px;
+        letter-spacing: 2.6px;
+    }
+    .column h2{
+        font-size: 4rem;
+        font-weight: 700;
+    }
+    .show-up{
+        transform: translateY(-44rem);
+    }
+    button{
+        width: 14.6rem;
+        justify-content: space-around;
+        font-size: 16px;
+        line-height: 28px;
+        letter-spacing: 5px;
+        height: 5.6rem;
+    }
+    button > img{
+        width: 4rem;
+        height: 4rem;
+    }
 }

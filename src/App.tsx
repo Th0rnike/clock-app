@@ -1,10 +1,9 @@
 import "./App.css";
 import sunIcon from "../assets/desktop/icon-sun.svg";
 import arrowUp from "../assets/desktop/icon-arrow-up.svg";
+import arrowDown from "../assets/desktop/icon-arrow-down.svg";
 import iconRefresh from "../assets/desktop/icon-refresh.svg";
 import { useEffect, useState } from "react";
-import day from "../assets/mobile/bg-image-daytime.jpg";
-import night from "../assets/mobile/bg-image-nighttime.jpg";
 
 const URL = "http://worldtimeapi.org/api/timezone/";
 const timezone = "Asia/Tbilisi";
@@ -95,14 +94,15 @@ function App() {
     randomQuote();
   };
 
+  const nightBackgroundPiroba = `${hour! < 18 ? "nightBackground" : ""}`;
+
   return (
     <div className="App">
       <section
-        className={showMore ? "main_section moveup" : "main_section"}
-        style={
-          hour !== undefined && hour < 18
-            ? { backgroundImage: `url(${day})` }
-            : { backgroundImage: `url(${night})` }
+        className={
+          showMore
+            ? `main_section moveup ${nightBackgroundPiroba}`
+            : `main_section ${nightBackgroundPiroba}`
         }
       >
         <div className={showMore ? "quote hide" : "quote"}>
@@ -132,7 +132,9 @@ function App() {
           </p>
           <button onClick={handleClick}>
             {showMore ? "less" : "more"}
-            <img src={arrowUp} alt="" />
+            <div className="circle">
+              <img src={arrowDown} alt="" />
+            </div>
           </button>
         </div>
         <div className="darken"></div>
@@ -144,16 +146,24 @@ function App() {
           }
         >
           <div className="column">
-            <p className="keys">CURRENT TIMEZONE</p>
-            <p className="keys">Day of the week</p>
-            <p className="keys">Day of the year</p>
-            <p className="keys">Week number</p>
-          </div>
-          <div className="column">
-            <h2 className="values">{currentTimezone}</h2>
-            <h2 className="values">{dayOfTheWeek}</h2>
-            <h2 className="values">{dayOfTheYear}</h2>
-            <h2 className="values">{weekNumber}</h2>
+            <div>
+              <p className="keys">CURRENT TIMEZONE</p>
+              <h2 className="values">{currentTimezone}</h2>
+            </div>
+            <div>
+              {" "}
+              <p className="keys">Day of the week</p>
+              <h2 className="values">{dayOfTheWeek}</h2>
+            </div>
+            <div>
+              {" "}
+              <p className="keys">Day of the year</p>
+              <h2 className="values">{dayOfTheYear}</h2>
+            </div>
+            <div>
+              <p className="keys">Week number</p>
+              <h2 className="values">{weekNumber}</h2>
+            </div>
           </div>
         </div>
       </section>
