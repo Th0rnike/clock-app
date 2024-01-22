@@ -31,6 +31,7 @@
     position: relative;
     z-index: 1;
     display: flex;
+    justify-content: space-between;
     gap: 1.6rem;
     padding: 3.2rem 2.6rem;
     transform: translateY(0);
@@ -94,7 +95,7 @@
 #local_time{
     display: flex;
     margin-bottom: 1.6rem;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }
 

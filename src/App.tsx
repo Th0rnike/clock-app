@@ -17,9 +17,12 @@ function App() {
   const [weekNumber, setWeekNumber] = useState<number>();
   const [hour, setHour] = useState<number | undefined>();
   const [minutes, setMinutes] = useState<number>();
-  const [abbr, setAbbr] = useState<string>();
-  const [city, setCity] = useState<string>();
+  const [abbr, setAbbr] = useState<string>("GE");
+  const [city, setCity] = useState<string>("ambro");
   const [abbreviation, setAbbreviation] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
+
   // const [seconds, setSeconds] = useState<number>();
   // seconds and secSeconds -> if we need the exact clock in milliseconds accuracy, but it will me more costly for processor <<---
 
@@ -34,15 +37,26 @@ function App() {
     return hourFormat;
   }
 
-  const country = async () => {
-    const res = await fetch(
-      "https://api.ipbase.com/v2/info?apikey=ipb_live_qmd0BGBMgcbhSXSHy4DDOKPafeorSGm9wfpPjOea&ip=212.58.103.131"
-    );
-    const data = await res.json();
-    setAbbr(data.data.location.country.alpha2);
-    setCity(data.data.location.city.name);
-    // console.log(data.data.location.city.name);
-  };
+  // const country = async () => {
+  //   const res = await fetch(
+  //     "https://api.ipbase.com/v2/info?apikey=ipb_live_qmd0BGBMgcbhSXSHy4DDOKPafeorSGm9wfpPjOea&ip=212.58.103.131"
+  //   );
+  //   const data = await res.json();
+  //   // setAbbr(data.data.location.country.alpha2);
+  //   // setCity(data.data.location.city.name);
+  //   // request limit is full
+  //   console.log(data);
+  // };
+
+  async function randomQuote() {
+    const response = await fetch("https://api.quotable.io/random");
+    const data = await response.json();
+
+    setContent(data.content);
+    setAuthor(data.author);
+    // console.log(data);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(URL + timezone);
@@ -54,17 +68,19 @@ function App() {
       setWeekNumber(data.week_number);
 
       const datetime = new Date(data.datetime);
-      setHour(formatHours(datetime.getHours()));
-      // setHour(20);
+      setHour(datetime.getHours());
+      // setHour(18);
 
       setMinutes(datetime.getMinutes());
       // setSeconds(datetime.getSeconds()); as said in upper line
       setAbbreviation(data.abbreviation);
+      setCity(data.timezone.split("/")[1]);
       // console.log(data);
     };
 
+    randomQuote();
     fetchData();
-    country();
+    // country();
 
     const intervalId = setInterval(fetchData, 60000);
 
@@ -75,26 +91,26 @@ function App() {
     return hour! >= 12 ? "pm" : "am";
   }
 
+  const refreshQuote = () => {
+    randomQuote();
+  };
+
   return (
     <div className="App">
       <section
         className={showMore ? "main_section moveup" : "main_section"}
         style={
-          hour !== undefined && ampm(hour) === "am"
+          hour !== undefined && hour < 18
             ? { backgroundImage: `url(${day})` }
             : { backgroundImage: `url(${night})` }
         }
       >
         <div className={showMore ? "quote hide" : "quote"}>
           <div>
-            <p>
-              “The science of operations, as derived from mathematics more
-              especially, is a science of itself, and has its own abstract truth
-              and value.”
-            </p>
-            <p id="quote_author">Ada Lovelace</p>
+            <p>{content}</p>
+            <p id="quote_author">{author}</p>
           </div>
-          <img id="refresh" src={iconRefresh} alt="" />
+          <img onClick={refreshQuote} id="refresh" src={iconRefresh} alt="" />
         </div>
         <div className={showMore ? "time upwards" : "time"}>
           <div id="greetings">
@@ -103,7 +119,7 @@ function App() {
           </div>
           <div id="local_time">
             <h1>
-              {hour}:{String(minutes).padStart(2, "0")}
+              {formatHours(hour!)}:{String(minutes).padStart(2, "0")}
             </h1>
             <div id="timezone">
               <p className="zones">{ampm(hour!)}</p>
@@ -123,8 +139,8 @@ function App() {
         <div
           className={
             showMore
-              ? `details show-up ${ampm(hour!) === "am" ? "day" : "night"}`
-              : `details ${ampm(hour!) === "am" ? "day" : "night"}`
+              ? `details show-up ${hour! < 18 ? "day" : "night"}`
+              : `details ${hour! < 18 ? "day" : "night"}`
           }
         >
           <div className="column">
