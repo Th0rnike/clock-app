@@ -1,8 +1,8 @@
 import "./App.css";
 import sunIcon from "../assets/desktop/icon-sun.svg";
-import arrowUp from "../assets/desktop/icon-arrow-up.svg";
 import arrowDown from "../assets/desktop/icon-arrow-down.svg";
 import iconRefresh from "../assets/desktop/icon-refresh.svg";
+import moonIcon from "../assets/desktop/icon-moon.svg";
 import { useEffect, useState } from "react";
 
 const URL = "http://worldtimeapi.org/api/timezone/";
@@ -24,6 +24,9 @@ function App() {
 
   // const [seconds, setSeconds] = useState<number>();
   // seconds and secSeconds -> if we need the exact clock in milliseconds accuracy, but it will me more costly for processor <<---
+
+  const isEvening = hour! > 18;
+  const nightBackgroundPiroba = `${isEvening ? "nightBackground" : ""}`;
 
   const handleClick = () => {
     setShowMore(!showMore);
@@ -68,7 +71,7 @@ function App() {
 
       const datetime = new Date(data.datetime);
       setHour(datetime.getHours());
-      // setHour(18);
+      // setHour(17);
 
       setMinutes(datetime.getMinutes());
       // setSeconds(datetime.getSeconds()); as said in upper line
@@ -94,8 +97,6 @@ function App() {
     randomQuote();
   };
 
-  const nightBackgroundPiroba = `${hour! < 18 ? "nightBackground" : ""}`;
-
   return (
     <div className="App">
       <section
@@ -114,8 +115,8 @@ function App() {
         </div>
         <div className={showMore ? "time upwards" : "time"}>
           <div id="greetings">
-            <img src={sunIcon} alt="" />
-            <p>GOOD MORNING</p>
+            <img src={isEvening ? moonIcon : sunIcon} alt="" />
+            <p>{isEvening ? "Good evening" : "good morning"}</p>
           </div>
           <div id="local_time">
             <h1>
@@ -130,19 +131,26 @@ function App() {
           <p id="location">
             IN {city}, {abbr}
           </p>
+        </div>
+        <div>
           <button onClick={handleClick}>
             {showMore ? "less" : "more"}
             <div className="circle">
-              <img src={arrowDown} alt="" />
+              <img
+                className={showMore ? "rotate" : ""}
+                src={arrowDown}
+                alt=""
+              />
             </div>
           </button>
         </div>
+
         <div className="darken"></div>
         <div
           className={
             showMore
-              ? `details show-up ${hour! < 18 ? "day" : "night"}`
-              : `details ${hour! < 18 ? "day" : "night"}`
+              ? `details show-up ${isEvening ? "night" : "day"}`
+              : `details ${isEvening ? "night" : "day"}`
           }
         >
           <div className="column">

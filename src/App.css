@@ -16,6 +16,9 @@
     justify-content: space-between;
 }
 
+.nightBackground{
+    background-image: url("../assets/mobile/bg-image-nighttime.jpg");
+}
 
 .darken{
     width: 100%;
@@ -35,17 +38,22 @@
     gap: 1.6rem;
     padding: 3.2rem 2.6rem;
     transform: translateY(0);
-    transition: transform .5s ease-in;
+    transition: transform .35s ease-in;
+    max-width: 53.7rem;
 }
 
 .hide{
     transform: translateY(-152px);
-    
 }
 
 #refresh{
     width: 1.6rem;
     height: 1.6rem;
+    cursor: pointer;
+}
+
+#refresh:active{
+    transform: scale(0.9);
 }
 
 .quote p{
@@ -67,7 +75,7 @@
     z-index: 1;
     padding: 3.2rem 2.6rem;
     transform: translateY(0);
-    transition: transform .5s ease-in;
+    transition: transform .35s ease-in;
 
 }
 
@@ -90,6 +98,15 @@
     display: flex;
     gap: 1.6rem;
     margin-bottom: 1.6rem;
+}
+
+#greetings img{
+    width: 22px;
+    height: 24px;
+}
+
+#greetings p::before{
+    content: "";
 }
 
 #local_time{
@@ -166,8 +183,8 @@ button:hover{
 }
 
 .circle{
-    height: 4rem;
-    width: 4rem;
+    height: 3.2rem;
+    width: 3.2rem;
     background-color: #303030;
     border-radius: 50%;
     display: flex;
@@ -182,6 +199,9 @@ button:hover{
  button > img {
     width: 3.2rem;
     height: 3.2rem;
+}
+
+.rotate{
     transform: rotate(180deg);
 }
 
@@ -195,7 +215,7 @@ button>img:hover{
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(20px);
     padding: 4.8rem 2.6rem;
-    transition: transform .5s ease-in;
+    transition: transform .35s ease-in;
     bottom: -26rem;
 } 
 
@@ -255,10 +275,17 @@ button>img:hover{
     .main_section{
         background-image: url("../assets/tablet/bg-image-daytime.jpg");
     }
+    .nightBackground{
+        background-image: url("../assets/tablet/bg-image-nighttime.jpg");
+    }
     .quote{
         padding: 8rem 6.4rem;
         justify-content: flex-start;
         align-items: baseline;
+    }
+    .hide{
+        transform: translateY(-44rem);
+
     }
     .quote p{
         font-size: 1.8rem;
@@ -279,16 +306,32 @@ button>img:hover{
         line-height: 17.5rem;
         letter-spacing: -4.375px;
     }
+    #local_time{
+        gap: 2rem;
+    }
     #quote_author{
         font-size: 1.8rem;
         line-height: 2.8rem;
     }
     #timezone{
-        padding-top: 10rem;
+        padding-top: 6rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: baseline;
+    }
+    p.zones{
+        font-size: 3.2rem;
     }
     #location{
         font-size: 1.8rem;
         letter-spacing: 3.6px;
+    }
+    #greetings p::after{
+        content: ", it's currently";
+    }
+    .upwards{
+        transform: translateY(-44rem);
     }
     .details{
         bottom: -45rem;
@@ -327,5 +370,32 @@ button>img:hover{
     button > img{
         width: 4rem;
         height: 4rem;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .main_section{
+        background-image: url("../assets/desktop/bg-image-daytime.jpg");
+    }
+    .nightBackground{
+        background-image: url("../assets/desktop/bg-image-nighttime.jpg");
+    }
+    .quote{
+        padding-top: 5.6rem;
+        padding-left: 16.5rem;
+    }
+    .time{
+        padding-left: 16.5rem;
+    }
+    .time h1{
+        font-size: 20rem;
+        line-height: 20rem;
+        letter-spacing: -5px;
+    }
+    .time p{
+        font-size: 2rem;
+    }
+    .time #location{
+        font-size: 2.4rem;
     }
 }
