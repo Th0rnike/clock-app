@@ -3,6 +3,8 @@ import sunIcon from "../assets/desktop/icon-sun.svg";
 import arrowUp from "../assets/desktop/icon-arrow-up.svg";
 import iconRefresh from "../assets/desktop/icon-refresh.svg";
 import { useEffect, useState } from "react";
+import day from "../assets/mobile/bg-image-daytime.jpg";
+import night from "../assets/mobile/bg-image-nighttime.jpg";
 
 const URL = "http://worldtimeapi.org/api/timezone/";
 const timezone = "Asia/Tbilisi";
@@ -13,35 +15,24 @@ function App() {
   const [dayOfTheWeek, setDayOfTheWeek] = useState<number>();
   const [dayOfTheYear, setDayOfTheYear] = useState<number>();
   const [weekNumber, setWeekNumber] = useState<number>();
-  const [hour, setHour] = useState<number>();
+  const [hour, setHour] = useState<number | undefined>();
   const [minutes, setMinutes] = useState<number>();
   const [abbr, setAbbr] = useState<string>();
   const [city, setCity] = useState<string>();
+  const [abbreviation, setAbbreviation] = useState<string>("");
   // const [seconds, setSeconds] = useState<number>();
   // seconds and secSeconds -> if we need the exact clock in milliseconds accuracy, but it will me more costly for processor <<---
 
   const handleClick = () => {
     setShowMore(!showMore);
-    console.log(showMore);
+    // console.log(showMore);
     console.log("i am clicked");
   };
 
-  const fetchData = async () => {
-    const response = await fetch(URL + timezone);
-    const data = await response.json();
-
-    setCurrentTimezone(data.timezone);
-    setDayOfTheWeek(data.day_of_week);
-    setDayOfTheYear(data.day_of_year);
-    setWeekNumber(data.week_number);
-
-    const datetime = new Date(data.datetime);
-    setHour(datetime.getHours());
-    setMinutes(datetime.getMinutes());
-    // setSeconds(datetime.getSeconds()); as said in upper line
-
-    // console.log(data);
-  };
+  function formatHours(hour: number): number {
+    const hourFormat = hour % 12;
+    return hourFormat;
+  }
 
   const country = async () => {
     const res = await fetch(
@@ -50,9 +41,28 @@ function App() {
     const data = await res.json();
     setAbbr(data.data.location.country.alpha2);
     setCity(data.data.location.city.name);
-    console.log(data.data.location.city.name);
+    // console.log(data.data.location.city.name);
   };
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(URL + timezone);
+      const data = await response.json();
+
+      setCurrentTimezone(data.timezone);
+      setDayOfTheWeek(data.day_of_week);
+      setDayOfTheYear(data.day_of_year);
+      setWeekNumber(data.week_number);
+
+      const datetime = new Date(data.datetime);
+      setHour(formatHours(datetime.getHours()));
+      // setHour(20);
+
+      setMinutes(datetime.getMinutes());
+      // setSeconds(datetime.getSeconds()); as said in upper line
+      setAbbreviation(data.abbreviation);
+      // console.log(data);
+    };
+
     fetchData();
     country();
 
@@ -61,9 +71,20 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
+  function ampm(hour: number): string {
+    return hour! >= 12 ? "pm" : "am";
+  }
+
   return (
     <div className="App">
-      <section className={showMore ? "main_section moveup" : "main_section"}>
+      <section
+        className={showMore ? "main_section moveup" : "main_section"}
+        style={
+          hour !== undefined && ampm(hour) === "am"
+            ? { backgroundImage: `url(${day})` }
+            : { backgroundImage: `url(${night})` }
+        }
+      >
         <div className={showMore ? "quote hide" : "quote"}>
           <div>
             <p>
@@ -82,9 +103,12 @@ function App() {
           </div>
           <div id="local_time">
             <h1>
-              {hour! - 12}:{String(minutes).padStart(2, "0")}
+              {hour}:{String(minutes).padStart(2, "0")}
             </h1>
-            <span>BST</span>
+            <div id="timezone">
+              <p className="zones">{ampm(hour!)}</p>
+              <p className="zones">{abbreviation}</p>
+            </div>
           </div>
 
           <p id="location">
@@ -96,7 +120,13 @@ function App() {
           </button>
         </div>
         <div className="darken"></div>
-        <div className={showMore ? "details show-up" : "details"}>
+        <div
+          className={
+            showMore
+              ? `details show-up ${ampm(hour!) === "am" ? "day" : "night"}`
+              : `details ${ampm(hour!) === "am" ? "day" : "night"}`
+          }
+        >
           <div className="column">
             <p className="keys">CURRENT TIMEZONE</p>
             <p className="keys">Day of the week</p>
