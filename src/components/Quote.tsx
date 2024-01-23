@@ -7,17 +7,26 @@ interface quoteInterface {
   setContent(data: string): void;
   author: string;
   setAuthor(data: string): void;
-  refreshQuote(): void;
 }
 
 const Quote = ({
   author,
   content,
-  refreshQuote,
-  //   setContent,
-  //   setAuthor,
   showMore,
+  setContent,
+  setAuthor,
 }: quoteInterface) => {
+  async function randomQuote() {
+    const response = await fetch("https://api.quotable.io/random");
+    const data = await response.json();
+
+    setContent(data.content);
+    setAuthor(data.author);
+  }
+  const refreshQuote = () => {
+    randomQuote();
+  };
+
   return (
     <div className={showMore ? "quote hide" : "quote"}>
       <div>

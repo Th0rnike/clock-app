@@ -1,9 +1,9 @@
 import "./App.css";
-import sunIcon from "./assets/desktop/icon-sun.svg";
-import arrowDown from "./assets/desktop/icon-arrow-down.svg";
-import moonIcon from "./assets/desktop/icon-moon.svg";
+
 import { useEffect, useState } from "react";
 import Quote from "./components/Quote";
+import Time from "./components/Time";
+import Details from "./components/Details";
 
 const URL = "http://worldtimeapi.org/api/timezone/";
 const timezone = "Asia/Tbilisi";
@@ -56,7 +56,6 @@ function App() {
 
     setContent(data.content);
     setAuthor(data.author);
-    // console.log(data);
   }
 
   useEffect(() => {
@@ -91,10 +90,6 @@ function App() {
     return hour! >= 12 ? "pm" : "am";
   }
 
-  const refreshQuote = () => {
-    randomQuote();
-  };
-
   return (
     <div className="App">
       <section
@@ -107,74 +102,31 @@ function App() {
         <Quote
           author={author}
           content={content}
-          refreshQuote={refreshQuote}
           setAuthor={setAuthor}
           setContent={setContent}
           showMore={showMore}
         />
-        <div className={showMore ? "time upwards" : "time"}>
-          <div>
-            <div id="greetings">
-              <img src={isEvening ? moonIcon : sunIcon} alt="" />
-              <p>{isEvening ? "Good evening" : "good morning"}</p>
-            </div>
-            <div id="local_time">
-              <h1>
-                {formatHours(hour!)}:{String(minutes).padStart(2, "0")}
-              </h1>
-              <div id="timezone">
-                <p className="zones">{ampm(hour!)}</p>
-                <p className="zones">{abbreviation}</p>
-              </div>
-            </div>
-
-            <p id="location">
-              IN {city}, {abbr}
-            </p>
-          </div>
-          <div>
-            <button onClick={handleClick}>
-              {showMore ? "less" : "more"}
-              <div className="circle">
-                <img
-                  className={showMore ? "rotate" : ""}
-                  src={arrowDown}
-                  alt=""
-                />
-              </div>
-            </button>
-          </div>
-        </div>
+        <Time
+          abbr={abbr}
+          abbreviation={abbreviation}
+          ampm={ampm}
+          city={city}
+          formatHours={formatHours}
+          handleClick={handleClick}
+          hour={hour}
+          isEvening={isEvening}
+          minutes={minutes}
+          showMore={showMore}
+        />
         <div className="darken"></div>
-        <div
-          className={
-            showMore
-              ? `details show-up ${isEvening ? "night" : "day"}`
-              : `details ${isEvening ? "night" : "day"}`
-          }
-        >
-          <div className="column">
-            <div>
-              <p className="keys">CURRENT TIMEZONE</p>
-              <h2 className="values">{currentTimezone}</h2>
-            </div>
-            <div>
-              {" "}
-              <p className="keys">Day of the week</p>
-              <h2 className="values">{dayOfTheWeek}</h2>
-            </div>
-            <hr id="line" />
-            <div>
-              {" "}
-              <p className="keys">Day of the year</p>
-              <h2 className="values">{dayOfTheYear}</h2>
-            </div>
-            <div>
-              <p className="keys">Week number</p>
-              <h2 className="values">{weekNumber}</h2>
-            </div>
-          </div>
-        </div>
+        <Details
+          currentTimezone={currentTimezone}
+          dayOfTheWeek={dayOfTheWeek}
+          dayOfTheYear={dayOfTheYear}
+          isEvening={isEvening}
+          showMore={showMore}
+          weekNumber={weekNumber}
+        />
       </section>
     </div>
   );
