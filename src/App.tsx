@@ -25,7 +25,7 @@ function App() {
   // const [seconds, setSeconds] = useState<number>();
   // seconds and secSeconds -> if we need the exact clock in milliseconds accuracy, but it will me more costly for processor <<---
 
-  const isEvening = hour! > 18;
+  const isEvening = hour! >= 18;
   const nightBackgroundPiroba = `${isEvening ? "nightBackground" : ""}`;
 
   const handleClick = () => {
@@ -71,13 +71,11 @@ function App() {
 
       const datetime = new Date(data.datetime);
       setHour(datetime.getHours());
-      // setHour(17);
 
       setMinutes(datetime.getMinutes());
       // setSeconds(datetime.getSeconds()); as said in upper line
       setAbbreviation(data.abbreviation);
       setCity(data.timezone.split("/")[1]);
-      // console.log(data);
     };
 
     randomQuote();
@@ -114,37 +112,38 @@ function App() {
           <img onClick={refreshQuote} id="refresh" src={iconRefresh} alt="" />
         </div>
         <div className={showMore ? "time upwards" : "time"}>
-          <div id="greetings">
-            <img src={isEvening ? moonIcon : sunIcon} alt="" />
-            <p>{isEvening ? "Good evening" : "good morning"}</p>
-          </div>
-          <div id="local_time">
-            <h1>
-              {formatHours(hour!)}:{String(minutes).padStart(2, "0")}
-            </h1>
-            <div id="timezone">
-              <p className="zones">{ampm(hour!)}</p>
-              <p className="zones">{abbreviation}</p>
+          <div>
+            <div id="greetings">
+              <img src={isEvening ? moonIcon : sunIcon} alt="" />
+              <p>{isEvening ? "Good evening" : "good morning"}</p>
             </div>
-          </div>
-
-          <p id="location">
-            IN {city}, {abbr}
-          </p>
-        </div>
-        <div>
-          <button onClick={handleClick}>
-            {showMore ? "less" : "more"}
-            <div className="circle">
-              <img
-                className={showMore ? "rotate" : ""}
-                src={arrowDown}
-                alt=""
-              />
+            <div id="local_time">
+              <h1>
+                {formatHours(hour!)}:{String(minutes).padStart(2, "0")}
+              </h1>
+              <div id="timezone">
+                <p className="zones">{ampm(hour!)}</p>
+                <p className="zones">{abbreviation}</p>
+              </div>
             </div>
-          </button>
-        </div>
 
+            <p id="location">
+              IN {city}, {abbr}
+            </p>
+          </div>
+          <div>
+            <button onClick={handleClick}>
+              {showMore ? "less" : "more"}
+              <div className="circle">
+                <img
+                  className={showMore ? "rotate" : ""}
+                  src={arrowDown}
+                  alt=""
+                />
+              </div>
+            </button>
+          </div>
+        </div>
         <div className="darken"></div>
         <div
           className={
@@ -163,6 +162,7 @@ function App() {
               <p className="keys">Day of the week</p>
               <h2 className="values">{dayOfTheWeek}</h2>
             </div>
+            <hr id="line" />
             <div>
               {" "}
               <p className="keys">Day of the year</p>
