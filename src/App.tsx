@@ -1,9 +1,9 @@
 import "./App.css";
-import sunIcon from "../assets/desktop/icon-sun.svg";
-import arrowDown from "../assets/desktop/icon-arrow-down.svg";
-import iconRefresh from "../assets/desktop/icon-refresh.svg";
-import moonIcon from "../assets/desktop/icon-moon.svg";
+import sunIcon from "./assets/desktop/icon-sun.svg";
+import arrowDown from "./assets/desktop/icon-arrow-down.svg";
+import moonIcon from "./assets/desktop/icon-moon.svg";
 import { useEffect, useState } from "react";
+import Quote from "./components/Quote";
 
 const URL = "http://worldtimeapi.org/api/timezone/";
 const timezone = "Asia/Tbilisi";
@@ -11,11 +11,11 @@ const timezone = "Asia/Tbilisi";
 function App() {
   const [showMore, setShowMore] = useState(false);
   const [currentTimezone, setCurrentTimezone] = useState<string>("");
-  const [dayOfTheWeek, setDayOfTheWeek] = useState<number>();
-  const [dayOfTheYear, setDayOfTheYear] = useState<number>();
-  const [weekNumber, setWeekNumber] = useState<number>();
-  const [hour, setHour] = useState<number | undefined>();
-  const [minutes, setMinutes] = useState<number>();
+  const [dayOfTheWeek, setDayOfTheWeek] = useState<number>(1);
+  const [dayOfTheYear, setDayOfTheYear] = useState<number>(1);
+  const [weekNumber, setWeekNumber] = useState<number>(1);
+  const [hour, setHour] = useState<number>(1);
+  const [minutes, setMinutes] = useState<number>(1);
   const [abbr, setAbbr] = useState<string>("GE");
   const [city, setCity] = useState<string>("ambro");
   const [abbreviation, setAbbreviation] = useState<string>("");
@@ -104,13 +104,14 @@ function App() {
             : `main_section ${nightBackgroundPiroba}`
         }
       >
-        <div className={showMore ? "quote hide" : "quote"}>
-          <div>
-            <p>{content}</p>
-            <p id="quote_author">{author}</p>
-          </div>
-          <img onClick={refreshQuote} id="refresh" src={iconRefresh} alt="" />
-        </div>
+        <Quote
+          author={author}
+          content={content}
+          refreshQuote={refreshQuote}
+          setAuthor={setAuthor}
+          setContent={setContent}
+          showMore={showMore}
+        />
         <div className={showMore ? "time upwards" : "time"}>
           <div>
             <div id="greetings">

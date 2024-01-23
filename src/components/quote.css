@@ -1,0 +1,68 @@
+.quote{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.6rem;
+    padding: 3.2rem 2.6rem;
+    transform: translateY(0);
+    transition: transform .35s ease-in;
+    max-width: 53.7rem;
+}
+
+.hide{
+    transform: translateY(-152px);
+}
+
+#refresh{
+    width: 1.6rem;
+    height: 1.6rem;
+    cursor: pointer;
+}
+
+#refresh:active{
+    transform: scale(0.9);
+}
+
+.quote p{
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 2.2rem;
+}
+
+#quote_author{
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 2.2rem;
+} 
+
+@media screen and (min-width: 768px){
+    .quote{
+        padding: 8rem 6.4rem;
+        justify-content: flex-start;
+        align-items: baseline;
+    }
+    .hide{
+        transform: translateY(-44rem);
+
+    }
+    .quote p{
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+    }
+    #quote_author{
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+    }
+}
+
+
+
+@media screen and (min-width: 1440px){
+    .quote{
+        padding-top: 5.6rem;
+        padding-left: 16.5rem;
+    }
+}
