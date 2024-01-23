@@ -1,42 +1,43 @@
 import "./App.css";
-
 import { useEffect, useState } from "react";
 import Quote from "./components/Quote";
 import Time from "./components/Time";
 import Details from "./components/Details";
 
-const URL = "http://worldtimeapi.org/api/timezone/";
-const timezone = "Asia/Tbilisi";
+const API_URL = process.env.REACT_APP_API_URL;
+const QUOTE = process.env.REACT_APP_QUOTABLE_API;
 
 function App() {
   const [showMore, setShowMore] = useState(false);
+  const [timeState, setTimeState] = useState({
+    hour: 1,
+    minutes: 1,
+    isEvening: false,
+  });
+  const [locationState, setLocationState] = useState({
+    city: "ambro",
+    countryCode: "",
+  });
   const [currentTimezone, setCurrentTimezone] = useState<string>("");
   const [dayOfTheWeek, setDayOfTheWeek] = useState<number>(1);
   const [dayOfTheYear, setDayOfTheYear] = useState<number>(1);
   const [weekNumber, setWeekNumber] = useState<number>(1);
-  const [hour, setHour] = useState<number>(1);
-  const [minutes, setMinutes] = useState<number>(1);
-  const [abbr, setAbbr] = useState<string>("GE");
-  const [city, setCity] = useState<string>("ambro");
-  const [abbreviation, setAbbreviation] = useState<string>("");
+  const [timeZone, setTimeZone] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
 
-  // const [seconds, setSeconds] = useState<number>();
-  // seconds and secSeconds -> if we need the exact clock in milliseconds accuracy, but it will me more costly for processor <<---
-
-  const isEvening = hour! >= 18;
-  const nightBackgroundPiroba = `${isEvening ? "nightBackground" : ""}`;
-
   const handleClick = () => {
     setShowMore(!showMore);
-    // console.log(showMore);
     console.log("i am clicked");
   };
 
   function formatHours(hour: number): number {
     const hourFormat = hour % 12;
     return hourFormat;
+  }
+
+  function ampm(hour: number): string {
+    return hour! >= 12 ? "pm" : "am";
   }
 
   // const country = async () => {
@@ -51,7 +52,10 @@ function App() {
   // };
 
   async function randomQuote() {
-    const response = await fetch("https://api.quotable.io/random");
+    const response = await fetch(QUOTE!);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
     const data = await response.json();
 
     setContent(data.content);
@@ -60,8 +64,14 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(URL + timezone);
-      const data = await response.json();
+      // const response = await fetch(API_URL! + DEFAULT_TIMEZONE!);
+      // const data = await response.json();
+      const response = await fetch(API_URL!);
+      const text = await response.text();
+      console.log(text); // Log the response text
+      const data = await response.json(); // Continue with parsing JSON
+
+      console.log(data);
 
       setCurrentTimezone(data.timezone);
       setDayOfTheWeek(data.day_of_week);
@@ -69,26 +79,35 @@ function App() {
       setWeekNumber(data.week_number);
 
       const datetime = new Date(data.datetime);
-      setHour(datetime.getHours());
 
-      setMinutes(datetime.getMinutes());
-      // setSeconds(datetime.getSeconds()); as said in upper line
-      setAbbreviation(data.abbreviation);
-      setCity(data.timezone.split("/")[1]);
+      setTimeState({
+        hour: datetime.getHours(),
+        minutes: datetime.getMinutes(),
+        isEvening: datetime.getHours() >= 18,
+      });
+
+      setLocationState({
+        city: data.timezone.split("/")[1],
+        countryCode: "GE",
+      });
+      console.log(data.abbreviation);
+
+      setTimeZone(data.abbreviation);
+      // setCity(data.timezone.split("/")[1]);
     };
 
     randomQuote();
-    fetchData();
     // country();
 
     const intervalId = setInterval(fetchData, 60000);
+    fetchData();
 
     return () => clearInterval(intervalId);
   }, []);
 
-  function ampm(hour: number): string {
-    return hour! >= 12 ? "pm" : "am";
-  }
+  const nightBackgroundPiroba = `${
+    timeState.isEvening ? "nightBackground" : ""
+  }`;
 
   return (
     <div className="App">
@@ -102,20 +121,16 @@ function App() {
         <Quote
           author={author}
           content={content}
-          setAuthor={setAuthor}
-          setContent={setContent}
           showMore={showMore}
+          randomQuote={randomQuote}
         />
         <Time
-          abbr={abbr}
-          abbreviation={abbreviation}
+          timeZone={timeZone}
           ampm={ampm}
-          city={city}
           formatHours={formatHours}
           handleClick={handleClick}
-          hour={hour}
-          isEvening={isEvening}
-          minutes={minutes}
+          time={timeState}
+          location={locationState}
           showMore={showMore}
         />
         <div className="darken"></div>
@@ -123,7 +138,7 @@ function App() {
           currentTimezone={currentTimezone}
           dayOfTheWeek={dayOfTheWeek}
           dayOfTheYear={dayOfTheYear}
-          isEvening={isEvening}
+          isEvening={timeState.isEvening}
           showMore={showMore}
           weekNumber={weekNumber}
         />

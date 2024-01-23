@@ -5,48 +5,53 @@ import "./time.css";
 
 interface timeInterface {
   showMore: boolean;
-  isEvening: boolean;
-  hour: number;
-  minutes: number;
   formatHours(param: number): number;
   ampm(param: number): string;
-  abbreviation: string;
-  city: string;
-  abbr: string;
+  timeZone: string;
   handleClick(): void;
+  time: timeStateInterface;
+  location: locationStateInterface;
+}
+
+interface locationStateInterface {
+  city: string;
+  countryCode: string;
+}
+
+interface timeStateInterface {
+  hour: number;
+  minutes: number;
+  isEvening: boolean;
 }
 
 const Time = ({
-  abbr,
-  abbreviation,
+  timeZone,
+  showMore,
+  time,
+  location,
   ampm,
-  city,
   formatHours,
   handleClick,
-  hour,
-  isEvening,
-  minutes,
-  showMore,
 }: timeInterface) => {
   return (
     <div className={showMore ? "time upwards" : "time"}>
       <div>
         <div id="greetings">
-          <img src={isEvening ? moonIcon : sunIcon} alt="" />
-          <p>{isEvening ? "Good evening" : "good morning"}</p>
+          <img src={time.isEvening ? moonIcon : sunIcon} alt="" />
+          <p>{time.isEvening ? "Good evening" : "good morning"}</p>
         </div>
         <div id="local_time">
           <h1>
-            {formatHours(hour!)}:{String(minutes).padStart(2, "0")}
+            {formatHours(time.hour!)}:{String(time.minutes).padStart(2, "0")}
           </h1>
           <div id="timezone">
-            <p className="zones">{ampm(hour!)}</p>
-            <p className="zones">{abbreviation}</p>
+            <p className="zones">{ampm(time.hour!)}</p>
+            <p className="zones">{timeZone}</p>
           </div>
         </div>
 
         <p id="location">
-          IN {city}, {abbr}
+          IN {location.city}, {"GE"}
         </p>
       </div>
       <div>
