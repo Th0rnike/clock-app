@@ -1,12 +1,16 @@
-![Screenshot 2024-02-08 at 22-02-21 Clock App](https://github.com/Th0rnike/clock-app/assets/116254117/14b5cbb6-190a-4d13-bdfe-bc46cd8c4971)# Clock App
+# Clock App
 
 Welcome to the Clock app! It's designed to help you keep track of time effortlessly. This app, crafted with TypeScript, brings you real-time updates and a simple, elegant design. Whether you're on your laptop, tablet, or phone, it adapts beautifully to your screen, making time management a breeze. Take a moment to explore its features and see how it enhances your daily routine.
 
 ## Description
 The Clock app is here to help you keep track of time easily. It has a simple design and shows you the current time without any distractions. It's made with TypeScript, so it works well and is accurate on different devices. Whether you're using your computer, tablet, or phone, the Clock app adjusts smoothly. Forget about worrying about time - try out the Clock app and make time management simpler!
 
-![Screenshot 2024-02-08 at 22-02-21 Clock App](https://github.com/Th0rnike/clock-app/assets/116254117/123bc26b-5b30-426a-873a-bc7fae2a8790)
+### Clock and Location
 ![Screenshot 2024-02-08 at 22-02-13 Clock App](https://github.com/Th0rnike/clock-app/assets/116254117/43cf3105-4cea-4f59-9262-4e6ac43cd0aa)
+
+### Details 
+![Screenshot 2024-02-08 at 22-02-21 Clock App](https://github.com/Th0rnike/clock-app/assets/116254117/123bc26b-5b30-426a-873a-bc7fae2a8790)
+
 
 
 
