@@ -11,7 +11,14 @@ The Clock app is here to help you keep track of time easily. It has a simple des
 ### Details 
 ![Screenshot 2024-02-08 at 22-02-21 Clock App](https://github.com/Th0rnike/clock-app/assets/116254117/123bc26b-5b30-426a-873a-bc7fae2a8790)
 
-
+## Technologies Used
+- HTML
+- CSS
+- TypeScript
+- React
+- WorldTimeAPI
+- Quotable API
+- React Hooks
 
 
 ## Table of Contents
@@ -24,7 +31,7 @@ The Clock app is here to help you keep track of time easily. It has a simple des
 
 ## Installation
 
-To install and run the Tip Calculator project locally, follow these steps:
+To install and run the Clock App project locally, follow these steps:
 
 1. Clone the repository to your local machine:
 
@@ -35,7 +42,7 @@ git clone https://github.com/Th0rnike/clock-app.git
 2. Navigate to the project directory:
 
 ```bash
-cd tip-calculator
+cd clock-app/vite-project
 ```
 
 3. Install dependencies using npm or yarn:
@@ -87,10 +94,9 @@ Once you have installed and started the Tip Calculator project, follow these ste
 
 ## Credits
 
-We would like to express our gratitude to the following tools, platforms, and resources for their support during the development of the Tip Calculator project:
+We would like to express our gratitude to the following tools, platforms, and resources for their support during the development of the Clock App project:
 
-- [BitCamp Reactor](https://reactor.bitcamp.ge/): BitCamp Reactor, a coding education platform, tasked us with designing the UI/UX for the Tip Calculator project using Figma. Their instructional video lectures provided essential insights for completing the task.
-- [Figma]([https://www.figma.com/file/CELgSjSm9RGfClpFBWm7kp/tip-calculator-app?type=design&node-id=0-70&mode=design&t=AkJ0SIpsMiP9fyfM-0](https://www.figma.com/file/DN9n5Yoz8Z3XivGpjDUgxu/clock-app?type=design&node-id=0-52&mode=design&t=kFVenEfpknjqz2RA-0)): Used for designing UI/UX prototypes for the Tip Calculator project.
+- [BitCamp Reactor](https://reactor.bitcamp.ge/): BitCamp Reactor, a coding education platform, tasked us with designing the UI/UX for the Clock App project using Figma. Their instructional video lectures provided essential insights for completing the task.
 - [ChatGPT](https://chat.openai.com/): Used for generating ideas and assistance during the development process.
 
-Thank you to BitCamp Reactor, Figma, and ChatGPT for their valuable contributions to the Tip Calculator project!
+Thank you to BitCamp Reactor and ChatGPT for their valuable contributions to the Clock App project!
