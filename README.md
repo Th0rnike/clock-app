@@ -14,11 +14,14 @@ The Clock app is here to help you keep track of time easily. It has a simple des
 ## Technologies Used
 - HTML
 - CSS
+- CSS Grid
+- Flexbox
 - TypeScript
 - React
 - WorldTimeAPI
 - Quotable API
 - React Hooks
+  
 
 
 ## Table of Contents
